@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Darts score</title>
+    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+
+  </head>
+  <body ng-app="darts">
+    <div ng-controller="settings">
+      <div ng-include src="'settings.html'"></div>
+      <div ng-include src="'score.html'"></div>
+    </div>
+
+    <script type="text/ng-template" id="playerSetting.html">
+      <input type="text" ng-model="player.name" tabIndex="{{$index + 1}}" />
+      <button ng-click="removePlayer($index)">remove</button>
+    </script>
+
+    <script type="text/ng-template" id="settings.html">
+    <div>
+      <select ng-model="model.gameType" ng-options="gameType for gameType in gameTypes">
+      </select>
+
+      <div ng-repeat="player in model.players">
+        <div ng-include="'playerSetting.html'"></div>
+      </div>
+      <button name="addNewPlayer" ng-click="addNewPlayer()">add new player</button>
+
+      {{model | json}}
+    </div>
+
+    </script>
+
+    <script type="text/ng-template" id="score.html">
+      <div class="score">
+        <div ng-repeat="player in model.players">
+          <span>{{player.name}}</span>
+          <span>{{player.score}}</span>
+          <input score-input player="player" type="text" name="move">
+        </div>
+      </div>
+    </script>
+
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/services/game.js"></script>
+    <script type="text/javascript" src="app/directives/scoreInput.js"></script>
+    <script type="text/javascript" src="app/controllers/score.js"></script>
+    <script type="text/javascript" src="app/controllers/settings.js"></script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "Darts",
+  "version": "0.1.0",
+  "description": "A simple darts score counter project",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start test/karma.config.js"
+  },
+  "keywords": [
+    "darts",
+    "score",
+    "counter"
+  ],
+  "author": "Peter Mihalik",
+  "license": "MIT",
+  "devDependencies": {
+    "bower": "^1.3.12"
+  }
+}
