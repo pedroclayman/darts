@@ -10,7 +10,7 @@ angular.module('darts').directive('scoreInput',[
       },
       link: function(scope, element, attrs) {
         var isWholeNumber = function(n) {
-          return n % 1 === 0;
+          return n != null && n !== '' && n % 1 === 0;
         }
 
         element.on('keyup', function(e) {
@@ -21,7 +21,7 @@ angular.module('darts').directive('scoreInput',[
               var score = scope.player.score;
 
               game.makeMove(amount, scope.player);
-              
+
               if (!scope.$$phase)
                 scope.$apply();
             }
