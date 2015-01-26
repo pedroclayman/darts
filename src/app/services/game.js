@@ -10,8 +10,7 @@ angular.module('darts').factory('game', [
         if (amount <= player.score)
           player.score = player.score - amount;
 
-        if(player.score == 0)
-          alert('game over');
+        return player.score == 0;
       }
     }
   }

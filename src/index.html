@@ -2,7 +2,10 @@
 <html>
   <head>
     <title>Darts score</title>
+    <link rel="stylesheet" href="../bower_components/angularjs-toaster/toaster.css" media="screen" charset="utf-8" />
     <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angularjs-toaster/toaster.js"></script>
 
   </head>
   <body ng-app="darts">
@@ -46,5 +49,7 @@
     <script type="text/javascript" src="app/directives/scoreInput.js"></script>
     <script type="text/javascript" src="app/controllers/score.js"></script>
     <script type="text/javascript" src="app/controllers/settings.js"></script>
+
+    <toaster-container></toaster-container>
   </body>
 </html>
