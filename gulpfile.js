@@ -3,15 +3,21 @@ var jsmin       = require('gulp-jsmin');
 var rename      = require('gulp-rename');
 var concat      = require('gulp-concat');
 var karma       = require('gulp-karma');
+var sass        = require('gulp-sass');
+var minifyCss   = require('gulp-minify-css');
+var concatCss   = require('gulp-concat-css');
+var rename      = require('gulp-rename');
 
 
 
-gulp.task('default', ['minify', 'test'], function(){
+gulp.task('default', ['copy-content','minify', 'scss-convert', 'test'], function(){
 
 });
 
 gulp.task('watch', ['test-watch'], function() {
   gulp.watch('src/**/*.js', ['minify']);
+  gulp.watch('src/styles/**/*.scss', ['scss-convert']);
+  gulp.watch('src/index.html', ['copy-content']);
 });
 
 gulp.task('minify', function() {
@@ -53,3 +59,20 @@ gulp.task('test', function() {
 gulp.task('test-watch', function() {
   test(true);
 });
+
+gulp.task('scss-convert', function() {
+  gulp.src('src/styles/**/*.scss')
+    .pipe(sass( { errLogToConsole: true } ))
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(concatCss("darts.css"))
+    .pipe(gulp.dest('dist'))
+    .pipe(minifyCss())
+    .pipe(rename('darts.min.css'))
+    .pipe(gulp.dest('dist'));
+
+});
+
+gulp.task('copy-content', function() {
+  gulp.src('src/index.html')
+    .pipe(gulp.dest('dist'));
+})
