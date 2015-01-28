@@ -31,10 +31,7 @@
 
     <script type="text/ng-template" id="standings.html">
       <div class="standings">
-        <div class="player-standings" ng-repeat="player in model.players">
-          <span class="name">{{player.name}}</span>
-          <span class="score">{{player.score}}</span>
-          <input score-input player="player" type="text" name="move">
+        <div player-info="player" ng-repeat="player in model.players">
         </div>
       </div>
     </script>
