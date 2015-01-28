@@ -25,5 +25,11 @@
     .score {
       font-size: 3.6em;
     }
+
+    .move-info {
+      &:not(:last-child):after {
+        content: ', ';
+      }
+    }
   }
 }

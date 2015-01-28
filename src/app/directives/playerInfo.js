@@ -9,6 +9,9 @@ angular.module('darts').directive('playerInfo', [
                   '<span class="name">{{getName()}}</span>' +
                   '<span class="score">{{player.score}}</span>' +
                   '<input score-input player="player" type="text" name="move">' +
+                  '<div class="moves">' +
+                  '<div move-info="move" ng-repeat="move in player.moves"></div>' +
+                  '</div>' +
                   '</div>',
       scope: {
         player: '=playerInfo'
