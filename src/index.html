@@ -19,9 +19,7 @@
 
     <script type="text/ng-template" id="settings.html">
     <div class="settings">
-      <span>Choose your type of game: </span>
-      <select ng-model="model.gameType" ng-options="gameType for gameType in gameTypes">
-      </select>
+      <div select-lock dt="gameTypes" model="model" prop-name="gameType" lock-condition="model.players.length > 0"></div>
 
       <div ng-repeat="player in model.players">
         <div ng-include="'playerSetting.html'"></div>
