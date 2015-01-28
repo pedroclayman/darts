@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('darts').directive('scoreInput',[
-  'game', 'toaster',
-  function(game, toaster) {
+  'game',
+  function(game) {
     return {
       restrict: 'A',
       scope: {
@@ -23,7 +23,7 @@ angular.module('darts').directive('scoreInput',[
               var isGameOver = game.makeMove(amount, scope.player);
 
               if (isGameOver) {
-                toaster.pop('success', 'Game Over', scope.player.name + ' won !');
+                alert('Game Over\n' + scope.player.name + ' won !');
               }
 
               if (!scope.$$phase)

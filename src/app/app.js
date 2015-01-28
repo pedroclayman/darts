@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('darts', ['toaster']);
+angular.module('darts', []);
