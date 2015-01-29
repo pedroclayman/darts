@@ -21,8 +21,6 @@
   ],
   "devDependencies": {
     "angular": "~1.3.9",
-    "angularjs-toaster": "~0.4.10",
-    "ngAnimate": "*",
     "angular-mocks": "~1.3.11"
   }
 }

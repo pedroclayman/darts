@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A simple darts score counter project",
   "main": "index.js",
+  "repository": "https://github.com/pedroclayman/darts.git",
   "scripts": {
     "test": "karma start test/karma.config.js"
   },
