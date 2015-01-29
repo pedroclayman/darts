@@ -1,5 +1,5 @@
 'use strict';
 
 angular.module('darts').value('gameTypes', [
-  101, 201, 301, 501
+  51, 61, 101, 201, 301, 501
 ]);
