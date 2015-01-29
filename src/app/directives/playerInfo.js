@@ -18,7 +18,7 @@ angular.module('darts').directive('playerInfo', [
       },
       link: function(scope, element, attrs) {
         scope.getName = function() {
-          return scope.player.name != null ? scope.player.name : "???";
+          return scope.player.name() != null ? scope.player.name() : "???";
         };
       }
     };

@@ -43,6 +43,12 @@ describe('players', function() {
       expect(angular.isFunction(player.resetScore)).toBeTruthy();
     });
 
+    it('a player instance should expose a method "name"', function() {
+      var player = players.createPlayer('Peter', 301);
+      expect(player.name).toBeDefined();
+      expect(angular.isFunction(player.name)).toBeTruthy();
+    });
+
     it('a player instance should expose a method "undoLastMove"', function() {
       var player = players.createPlayer('Peter', 301);
       expect(player.undoLastMove).toBeDefined();
@@ -70,18 +76,10 @@ describe('players', function() {
 
   it('should create a player', function() {
     var player = players.createPlayer('Peter', 301);
-    expect(player.name).toEqual("Peter");
+    expect(player.name()).toEqual("Peter");
     expect(player.getScore()).toEqual(301);
     expect(player.getMoves()).toEqual([]);
   });
-
-  it('shouldn\'t create a player if the name already exists', function() {
-    players.createPlayer('Peter', 301);
-    expect(players.getPlayers().length).toEqual(1);
-
-    players.createPlayer('Peter', 301);
-    expect(players.getPlayers().length).toEqual(1);
-  })
 
   it('should get all players', function() {
     players.createPlayer('Peter', 301);
@@ -95,7 +93,7 @@ describe('players', function() {
     players.createPlayer('Jano', 301);
 
     var player = players.getPlayer('Jano');
-    expect(player.name).toEqual('Jano');
+    expect(player.name()).toEqual('Jano');
     expect(player.getScore()).toEqual(301);
 
     player = players.getPlayer('Jozefina');

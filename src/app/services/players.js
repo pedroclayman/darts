@@ -4,7 +4,14 @@ var Player = function(name, score) {
   var originalScore = score;
   var moves = [];
 
-  this.name = name;
+  this.name = function(newName) {
+    if (angular.isDefined(newName)) {
+      name = newName;
+    }
+    return name;
+  };
+
+  this.name(name);
 
   this.undoLastMove = function() {
     if (moves.length > 0) {
@@ -48,13 +55,8 @@ angular.module('darts').factory('players', [
 
     return {
       createPlayer: function(name, score) {
-        var alreadyExists = this.getPlayer(name) != null;
-        var player = null;
-
-        if (!alreadyExists) {
-          player = new Player(name, score)
-          players.push(player);
-        }
+        var player = new Player(name, score)
+        players.push(player);
         return player;
       },
       getPlayers: function() {
@@ -63,7 +65,7 @@ angular.module('darts').factory('players', [
       getPlayer: function(name) {
         for (var i = 0; i < players.length; i++) {
           var player = players[i];
-          if (player.name === name) {
+          if (player.name() === name) {
             return player;
           }
         }
@@ -72,7 +74,7 @@ angular.module('darts').factory('players', [
       removePlayer: function(name) {
         for (var i = 0; i < players.length; i++) {
           var player = players[i];
-          if (player.name === name) {
+          if (player.name() === name) {
             players.splice(i, 1);
             return;
           }

@@ -15,7 +15,7 @@ angular.module('darts').controller('settings', [
     };
 
     $scope.removePlayer = function(player) {
-      players.removePlayer(player.name);
+      players.removePlayer(player.name());
     }
   }
 ])

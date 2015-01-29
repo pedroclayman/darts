@@ -13,7 +13,7 @@
     </div>
 
     <script type="text/ng-template" id="playerSetting.html">
-      <input type="text" ng-model="player.name" ng-model-options="{updateOn: 'blur'}" tabIndex="{{$index + 1}}" />
+      <input type="text" ng-model="player.name" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index + 1}}" />
       <button ng-click="removePlayer(player)">remove</button>
     </script>
 

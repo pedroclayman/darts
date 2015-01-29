@@ -21,7 +21,7 @@ angular.module('darts').directive('scoreInput',[
               scope.player.makeMove(amount);
 
               if(game.isGameOver()) {
-                alert('Game Over\n' + scope.player.name + ' won !');
+                alert('Game Over\n' + scope.player.name() + ' won !');
               }
             }
 
