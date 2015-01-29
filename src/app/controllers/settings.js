@@ -6,16 +6,16 @@ angular.module('darts').controller('settings', [
     $scope.gameTypes = gameTypes;
 
     $scope.model = {
-      players: [],
-      gameType: 301
+      gameType: 301,
+      players: players.getPlayers()
     };
 
     $scope.addNewPlayer = function() {
-      $scope.model.players.push(players.createPlayer(null, $scope.model.gameType));
+      players.createPlayer('', $scope.model.gameType)
     };
 
-    $scope.removePlayer = function(idxPlayer) {
-      $scope.model.players.splice(idxPlayer, 1);
+    $scope.removePlayer = function(player) {
+      players.removePlayer(player.name);
     }
   }
 ])

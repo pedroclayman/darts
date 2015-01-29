@@ -7,8 +7,8 @@ angular.module('darts').directive('playerInfo', [
       restrict: 'A',
       template: '<div class="player-standings">' +
                   '<span class="name">{{getName()}}</span>' +
-                  '<span class="score">{{player.score}}</span>' +
-                  '<input score-input player="player" type="text" name="move">' +
+                  '<span class="score">{{player.getScore()}}</span>' +
+                  '<input score-input="player" type="text" name="move">' +
                   '<div class="moves">' +
                   '<div move-info="move" ng-repeat="move in player.moves track by $index"></div>' +
                   '</div>' +

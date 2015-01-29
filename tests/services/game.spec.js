@@ -18,7 +18,8 @@ describe('game', function() {
     ]);
   });
 
-  it('should expose a method "makeMove"', function() {
-    // expect(game.makeMove).toBeDefined();
+  it('should expose method "isGameOver"', function() {
+    expect(angular.isFunction(game.isGameOver)).toBeTruthy();
   });
+
 });
