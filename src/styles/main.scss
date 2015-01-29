@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:100,300&subset=latin,latin-ext);
+
 $bgColorPrimary: #04f490;
 $bgColorSecondary: #79b6e5;
 $fontColor: #fff;
@@ -22,6 +24,9 @@ $fontColor: #fff;
 
 body, html {
   height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-style: normal;
 }
 
 body {
@@ -31,4 +36,8 @@ body {
 
 input, select, button {
   @include input-style;
+}
+
+@mixin bold {
+  font-weight: 300;
 }
