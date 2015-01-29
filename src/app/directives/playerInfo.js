@@ -10,7 +10,7 @@ angular.module('darts').directive('playerInfo', [
                   '<span class="score">{{player.getScore()}}</span>' +
                   '<input score-input="player" type="text" name="move">' +
                   '<div class="moves">' +
-                  '<div move-info="move" ng-repeat="move in player.moves track by $index"></div>' +
+                  '<div move-info="move" ng-repeat="move in player.getMoves() track by $index"></div>' +
                   '</div>' +
                   '</div>',
       scope: {
@@ -18,7 +18,8 @@ angular.module('darts').directive('playerInfo', [
       },
       link: function(scope, element, attrs) {
         scope.getName = function() {
-          return scope.player.name() != null ? scope.player.name() : "???";
+          var name = scope.player.name();
+          return name != null && name !== '' ? scope.player.name() : "???";
         };
       }
     };
