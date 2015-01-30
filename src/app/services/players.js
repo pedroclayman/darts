@@ -22,6 +22,7 @@ var Player = function(name, score) {
 
   this.resetScore = function(resetTo) {
     score = originalScore;
+    moves = [];
   };
 
   this.makeMove = function(points) {

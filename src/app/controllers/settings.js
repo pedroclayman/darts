@@ -16,6 +16,12 @@ angular.module('darts').controller('settings', [
 
     $scope.removePlayer = function(player) {
       players.removePlayer(player.name());
+    };
+
+    $scope.resetGame = function() {
+      angular.forEach($scope.model.players, function(player) {
+        player.resetScore();
+      });
     }
   }
 ])

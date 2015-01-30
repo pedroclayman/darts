@@ -13,7 +13,7 @@ angular.module('darts').factory('game', [
             return true;
           }
         }
-
+        
         return false;
       }
     };

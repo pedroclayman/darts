@@ -166,15 +166,16 @@ describe('players', function() {
     expect(moves[moves.length-1]).toEqual(302);
   });
 
-  it('should reset players score', function() {
+  it('should reset players score and clear all moves', function() {
     var player = players.createPlayer('Peter', 301);
     player.makeMove(100);
 
     expect(player.getScore()).toEqual(201);
-
+    expect(player.getMoves().length).toEqual(1);
     player.resetScore();
 
     expect(player.getScore()).toEqual(301);
+    expect(player.getMoves().length).toEqual(0);
   });
 
   it('should undo last move', function() {

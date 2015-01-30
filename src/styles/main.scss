@@ -41,3 +41,7 @@ input, select, button {
 @mixin bold {
   font-weight: 300;
 }
+
+button {
+  text-transform: uppercase;
+}
