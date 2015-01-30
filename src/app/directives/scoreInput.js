@@ -17,7 +17,7 @@ angular.module('darts').directive('scoreInput',[
             if (amount === '-') {
               scope.player.undoLastMove();
             }
-            else {
+            else if (amount != null && amount !== '') {
               scope.player.makeMove(amount);
 
               if(game.isGameOver()) {
