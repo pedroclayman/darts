@@ -2,6 +2,7 @@
 
 var Player = function(name, score) {
   var originalScore = score;
+  var email;
   var moves = [];
 
   this.name = function(newName) {
@@ -10,8 +11,14 @@ var Player = function(name, score) {
     }
     return name;
   };
-
   this.name(name);
+
+  this.email = function(newEmail) {
+    if (angular.isDefined(newEmail)) {
+      email = newEmail;
+    }
+    return email;
+  };
 
   this.undoLastMove = function() {
     if (moves.length > 0) {

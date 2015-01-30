@@ -72,6 +72,12 @@ describe('players', function() {
       expect(player.getMoves).toBeDefined();
       expect(angular.isFunction(player.getMoves)).toBeTruthy();
     });
+
+    it('a player instance should expose a method "email"', function() {
+      var player = players.createPlayer('Peter', 301);
+      expect(player.email).toBeDefined();
+      expect(angular.isFunction(player.email)).toBeTruthy();
+    });
   });
 
   it('should create a player', function() {

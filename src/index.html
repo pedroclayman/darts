@@ -16,7 +16,8 @@
     </div>
 
     <script type="text/ng-template" id="playerSetting.html">
-      <input type="text" ng-model="player.name" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index + 1}}" />
+      <input type="text" ng-model="player.name" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index*2 + 1}}" placeholder="name" />
+      <input type="text" ng-model="player.email" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index*2 + 2}}" placeholder="@" />
       <button ng-click="removePlayer(player)">remove</button>
     </script>
 
