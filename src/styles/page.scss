@@ -24,6 +24,11 @@
       font-size: 2.4em;
     }
 
+    img {
+      @include circular(100px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+
     .score {
       @include bold;
       font-size: 3.6em;

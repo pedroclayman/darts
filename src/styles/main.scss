@@ -38,10 +38,18 @@ input, select, button {
   @include input-style;
 }
 
+button {
+  text-transform: uppercase;
+}
+
 @mixin bold {
   font-weight: 300;
 }
 
-button {
-  text-transform: uppercase;
-}
+@mixin circular($width) {
+	width: $width;
+	height: $width;
+	border-radius: $width/2;
+	-webkit-border-radius: $width/2;
+	-moz-border-radius: $width/2;
+	}
