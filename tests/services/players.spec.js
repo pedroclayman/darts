@@ -5,6 +5,20 @@ describe('players', function() {
 
   beforeEach(function() {
     module('darts');
+    module(function($provide) {
+      $provide.factory('playerStore', [
+        function() {
+          return {
+            retrieve: function() {
+              return [];
+            },
+            store: function() {
+
+            }
+          }
+        }
+      ]);
+    });
   });
 
   beforeEach(function() {

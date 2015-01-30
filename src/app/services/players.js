@@ -57,9 +57,9 @@ var Player = function(name, score) {
 };
 
 angular.module('darts').factory('players', [
-
-  function players() {
-    var players = [];
+  'playerStore',
+  function players(playerStore) {
+    var players = playerStore.retrieve();
 
     return {
       createPlayer: function(name, score) {

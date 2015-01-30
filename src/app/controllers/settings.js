@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('darts').controller('settings', [
- '$scope', 'gameTypes', 'players',
-  function($scope, gameTypes, players) {
+ '$scope', 'gameTypes', 'players', 'playerStore',
+  function($scope, gameTypes, players, playerStore) {
     $scope.gameTypes = gameTypes;
+
+    $scope.availablePlayers = playerStore.retrieve();
 
     $scope.model = {
       gameType: 301,

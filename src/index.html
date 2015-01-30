@@ -25,6 +25,10 @@
     <div class="settings">
       <div select-lock dt="gameTypes" model="model" prop-name="gameType" lock-condition="model.players.length > 0"></div>
 
+      <div class="available-players">
+        <div ng-repeat="player in availablePlayers" available-player />
+      </div>
+
       <div ng-repeat="player in model.players">
         <div ng-include="'playerSetting.html'"></div>
       </div>

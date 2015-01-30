@@ -10,12 +10,15 @@ describe('playerStore', function() {
     module('darts');
     module(function($provide) {
       $provide.factory('localStorageService', function() {
+        var players = [];
         return {
-          set: function() {
+          set: function(player) {
+            players.push(player);
             setSpy(arguments);
           },
           get: function() {
             getSpy(arguments);
+            return players;
           }
         };
       });
@@ -37,5 +40,15 @@ describe('playerStore', function() {
     playerStore.store('Peto', 'peter.mihalik@gmail.com');
 
     expect(setSpy).toHaveBeenCalled();
+  });
+
+  it('should expose a method "retrieve" and return players using local storage', function() {
+    expect(angular.isFunction(playerStore.retrieve)).toBeTruthy();
+    playerStore.store('Peto', 'peter.mihalik@gmail.com');
+
+    var players = playerStore.retrieve();
+    expect(getSpy).toHaveBeenCalled();
+
+    expect(players.length).toEqual(1);
   });
 });

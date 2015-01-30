@@ -3,9 +3,15 @@
 angular.module('darts').factory('playerStore', [
   'localStorageService',
   function(localStorageService) {
+
+    var storeKey = "players";
+
     return {
       store: function(name, email) {
-        localStorageService.set({ name: name, email: email });
+        localStorageService.set(storeKey, { name: name, email: email });
+      },
+      retrieve: function() {
+        return localStorageService.get(storeKey);
       }
     };
   }
