@@ -33,6 +33,7 @@ var test = function(shouldWatch) {
   var testFiles = [
     'bower_components/angular/angular.js',
     'bower_components/angular-mocks/angular-mocks.js',
+    'bower_components/angular-local-storage/dist/angular-local-storage.js',
     'src/app/app.js',
     'src/app/controllers/**/*.js',
     'src/app/directives/**/*.js',
