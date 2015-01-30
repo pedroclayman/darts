@@ -1,9 +1,10 @@
 'use strict';
 
-var Player = function(name, score) {
+var Player = function(name, score, email) {
   var originalScore = score;
-  var email;
   var moves = [];
+
+  this.isInGame = false;
 
   this.name = function(newName) {
     if (angular.isDefined(newName)) {
@@ -59,13 +60,15 @@ var Player = function(name, score) {
 angular.module('darts').factory('players', [
   'playerStore',
   function players(playerStore) {
-    var players = playerStore.retrieve();
 
-    return {
-      createPlayer: function(name, score) {
-        var player = new Player(name, score)
-        players.push(player);
+    var api = {
+      createPlayer: function(name, score, email) {
+        var player = new Player(name, score, email);
         return player;
+      },
+      addPlayer: function(player) {
+        players.push(player);
+        playerStore.store(players);
       },
       getPlayers: function() {
         return players;
@@ -90,5 +93,11 @@ angular.module('darts').factory('players', [
 
       }
     };
+
+    var players = playerStore.retrieve().map(function(simplePlayer) {
+      return api.createPlayer(simplePlayer.name, null, simplePlayer.email);
+    });
+
+    return api;
   }
 ]);

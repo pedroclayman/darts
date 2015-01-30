@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Darts score</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="../bower_components/gridism/gridism.css">
     <link rel="stylesheet" href="darts.min.css" media="screen" charset="utf-8" />
     <script type="text/javascript" src="../bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="../bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
@@ -16,31 +18,34 @@
     </div>
 
     <script type="text/ng-template" id="playerSetting.html">
-      <input type="text" ng-model="player.name" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index*2 + 1}}" placeholder="name" />
-      <input type="text" ng-model="player.email" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index*2 + 2}}" placeholder="@" />
-      <button ng-click="removePlayer(player)">remove</button>
+      <input type="text" ng-model="newPlayer.name" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index*2 + 1}}" placeholder="name" />
+      <input type="text" ng-model="newPlayer.email" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index*2 + 2}}" placeholder="@" />
+      <button name="savePlayer" ng-click="savePlayer()">save player</button>
     </script>
 
     <script type="text/ng-template" id="settings.html">
-    <div class="settings">
-      <div select-lock dt="gameTypes" model="model" prop-name="gameType" lock-condition="model.players.length > 0"></div>
-
-      <div class="available-players">
-        <div ng-repeat="player in availablePlayers" available-player />
+    <div class="settings grid">
+      <div class="unit one-third">
+        <div select-lock dt="gameTypes" model="model" prop-name="gameType" lock-condition="model.players.length > 0"></div>
       </div>
 
-      <div ng-repeat="player in model.players">
-        <div ng-include="'playerSetting.html'"></div>
+      <div class="unit one-third available-players">
+        <div ng-repeat="player in players" available-player />
       </div>
-      <button name="addNewPlayer" ng-click="addNewPlayer()">add new player</button>
-      <button name="resetGame" ng-click="resetGame()">start over</button>
+
+      <div class="unit one-third">
+        <div ng-if="newPlayer != null" ng-include="'playerSetting.html'"></div>
+
+        <button name="createPlayer" ng-click="createPlayer()">create a new player</button>
+        <button name="resetGame" ng-click="resetGame()">start over</button>
+      </div>
     </div>
 
     </script>
 
     <script type="text/ng-template" id="standings.html">
       <div class="standings">
-        <div player-info="player" ng-repeat="player in model.players">
+        <div player-info="player" ng-repeat="player in model.players | filter: {isInGame:true}">
         </div>
       </div>
     </script>

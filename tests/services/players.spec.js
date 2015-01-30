@@ -2,6 +2,7 @@
 
 describe('players', function() {
   var players;
+  var spyStore = jasmine.createSpy('store');
 
   beforeEach(function() {
     module('darts');
@@ -12,8 +13,8 @@ describe('players', function() {
             retrieve: function() {
               return [];
             },
-            store: function() {
-
+            store: function(players) {
+              spyStore(players);
             }
           }
         }
@@ -30,68 +31,16 @@ describe('players', function() {
       ]);
   });
 
-  describe('', function() {
-    it('should expose a method "createPlayer"', function() {
-      expect(players.createPlayer).toBeDefined();
-      expect(angular.isFunction(players.createPlayer)).toBeTruthy();
-    });
+  it('a player instance should expose a method "email"', function() {
+    var player = players.createPlayer('Peter', 301);
+    expect(player.email).toBeDefined();
+    expect(angular.isFunction(player.email)).toBeTruthy();
+  });
 
-    it('should expose a method "getPlayers"', function() {
-      expect(players.getPlayers).toBeDefined();
-      expect(angular.isFunction(players.getPlayers)).toBeTruthy();
-    });
-
-    it('should expose a method "removePlayer"', function() {
-      expect(players.removePlayer).toBeDefined();
-      expect(angular.isFunction(players.removePlayer)).toBeTruthy();
-    });
-
-    it('should expose a method "getPlayer"', function() {
-      expect(players.getPlayer).toBeDefined();
-      expect(angular.isFunction(players.getPlayer)).toBeTruthy();
-    });
-
-    it('a player instance should expose a method "resetScore"', function() {
-      var player = players.createPlayer('Peter', 301);
-      expect(player.resetScore).toBeDefined();
-      expect(angular.isFunction(player.resetScore)).toBeTruthy();
-    });
-
-    it('a player instance should expose a method "name"', function() {
-      var player = players.createPlayer('Peter', 301);
-      expect(player.name).toBeDefined();
-      expect(angular.isFunction(player.name)).toBeTruthy();
-    });
-
-    it('a player instance should expose a method "undoLastMove"', function() {
-      var player = players.createPlayer('Peter', 301);
-      expect(player.undoLastMove).toBeDefined();
-      expect(angular.isFunction(player.undoLastMove)).toBeTruthy();
-    });
-
-    it('a player instance should expose a method "makeMove"', function() {
-      var player = players.createPlayer('Peter', 301);
-      expect(player.makeMove).toBeDefined();
-      expect(angular.isFunction(player.makeMove)).toBeTruthy();
-    });
-
-    it('a player instance should expose a method "getScore"', function() {
-      var player = players.createPlayer('Peter', 301);
-      expect(player.getScore).toBeDefined();
-      expect(angular.isFunction(player.getScore)).toBeTruthy();
-    });
-
-    it('a player instance should expose a method "getMoves"', function() {
-      var player = players.createPlayer('Peter', 301);
-      expect(player.getMoves).toBeDefined();
-      expect(angular.isFunction(player.getMoves)).toBeTruthy();
-    });
-
-    it('a player instance should expose a method "email"', function() {
-      var player = players.createPlayer('Peter', 301);
-      expect(player.email).toBeDefined();
-      expect(angular.isFunction(player.email)).toBeTruthy();
-    });
+  it('a player instance should expose a field "isInGame"', function() {
+    var player = players.createPlayer('Peter', 301);
+    expect(player.isInGame).toBeDefined();
+    expect(player.isInGame).toBeFalsy();
   });
 
   it('should create a player', function() {
@@ -101,16 +50,26 @@ describe('players', function() {
     expect(player.getMoves()).toEqual([]);
   });
 
+  it('should add a player and store him using playerStore', function() {
+    var player = players.createPlayer('Peter', 301);
+    expect(players.getPlayers().length).toEqual(0);
+
+    players.addPlayer(player);
+
+    expect(players.getPlayers().length).toEqual(1);
+    expect(spyStore).toHaveBeenCalledWith(players.getPlayers());
+  });
+
   it('should get all players', function() {
-    players.createPlayer('Peter', 301);
-    players.createPlayer('Jano', 301);
+    players.addPlayer(players.createPlayer('Peter', 301));
+    players.addPlayer(players.createPlayer('Jano', 301));
 
     expect(players.getPlayers().length).toEqual(2);
   });
 
   it('should get a player by name', function() {
-    players.createPlayer('Peter', 301);
-    players.createPlayer('Jano', 301);
+    players.addPlayer(players.createPlayer('Peter', 301));
+    players.addPlayer(players.createPlayer('Jano', 301));
 
     var player = players.getPlayer('Jano');
     expect(player.name()).toEqual('Jano');
@@ -121,8 +80,9 @@ describe('players', function() {
   });
 
   it('should remove a player by name', function() {
-    players.createPlayer('Peter', 301);
-    players.createPlayer('Jano', 301);
+    players.addPlayer(players.createPlayer('Peter', 301));
+    players.addPlayer(players.createPlayer('Jano', 301));
+
 
     expect(players.getPlayers().length).toEqual(2);
     players.removePlayer('Jano');
@@ -213,4 +173,5 @@ describe('players', function() {
     moves = player.getMoves();
     expect(moves.length).toEqual(0);
   });
+
 });

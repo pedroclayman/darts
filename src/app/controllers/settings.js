@@ -1,19 +1,24 @@
 'use strict';
 
 angular.module('darts').controller('settings', [
- '$scope', 'gameTypes', 'players', 'playerStore',
-  function($scope, gameTypes, players, playerStore) {
+ '$scope', 'gameTypes', 'players',
+  function($scope, gameTypes, players) {
     $scope.gameTypes = gameTypes;
 
-    $scope.availablePlayers = playerStore.retrieve();
+    $scope.newPlayer = null;
 
     $scope.model = {
       gameType: 301,
       players: players.getPlayers()
     };
 
-    $scope.addNewPlayer = function() {
-      players.createPlayer('', $scope.model.gameType)
+    $scope.createPlayer = function() {
+      $scope.newPlayer = players.createPlayer('', $scope.model.gameType);
+    };
+
+    $scope.savePlayer = function() {
+      players.addPlayer($scope.newPlayer);
+      $scope.newPlayer = null;
     };
 
     $scope.removePlayer = function(player) {

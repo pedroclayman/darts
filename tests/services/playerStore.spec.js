@@ -12,11 +12,11 @@ describe('playerStore', function() {
       $provide.factory('localStorageService', function() {
         var players = [];
         return {
-          set: function(player) {
-            players.push(player);
+          set: function(key, localPlayers) {
+            players = localPlayers;
             setSpy(arguments);
           },
-          get: function() {
+          get: function(key) {
             getSpy(arguments);
             return players;
           }
@@ -34,21 +34,24 @@ describe('playerStore', function() {
     ]);
   });
 
-  it('should expose a method "store" that saves a player using local storage', function() {
+  it('should expose a method "store" that preprocesses and saves players using local storage and a retrieve method', function() {
     expect(angular.isFunction(playerStore.store)).toBeTruthy();
 
-    playerStore.store('Peto', 'peter.mihalik@gmail.com');
+    var players = [];
+    var player = new Player('Peto', 301, 'peter@somewhere.com');
+    players.push(player);
+
+    playerStore.store(players);
 
     expect(setSpy).toHaveBeenCalled();
+    var retrievedPlayers = playerStore.retrieve();
+
+    expect(retrievedPlayers.length).toEqual(1);
+    expect(retrievedPlayers[0]).toEqual({name: 'Peto', email: "peter@somewhere.com" })
   });
 
-  it('should expose a method "retrieve" and return players using local storage', function() {
-    expect(angular.isFunction(playerStore.retrieve)).toBeTruthy();
-    playerStore.store('Peto', 'peter.mihalik@gmail.com');
-
+  it('should return an empty array when calling "retrieve" and no data is stored in local storage', function() {
     var players = playerStore.retrieve();
-    expect(getSpy).toHaveBeenCalled();
-
-    expect(players.length).toEqual(1);
+    expect(players.length).toEqual(0);
   });
 });
