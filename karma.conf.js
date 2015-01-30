@@ -18,6 +18,8 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-local-storage/dist/angular-local-storage.js',
+      'bower_components/angular-gravatar/build/md5.min.js',
+      'bower_components/angular-gravatar/build/angular-gravatar.min.js',
       'src/app/app.js',
       'src/app/controllers/**/*.js',
       'src/app/directives/**/*.js',
