@@ -2,54 +2,54 @@
 <html>
   <head>
     <title>Darts score</title>
-    <link rel="stylesheet" href="../bower_components/angularjs-toaster/toaster.css" media="screen" charset="utf-8" />
-    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="../bower_components/angular-animate/angular-animate.min.js"></script>
-    <script type="text/javascript" src="../bower_components/angularjs-toaster/toaster.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="../bower_components/gridism/gridism.css">
+    <link rel="stylesheet" href="darts.min.css" media="screen" charset="utf-8" />
+    <script type="text/javascript" src="../bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-gravatar/build/md5.min.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-gravatar/build/angular-gravatar.min.js"></script>
 
   </head>
   <body ng-app="darts">
-    <div ng-controller="settings">
+    <div ng-controller="game">
       <div ng-include src="'settings.html'"></div>
-      <div ng-include src="'score.html'"></div>
+      <div ng-include src="'standings.html'"></div>
     </div>
 
-    <script type="text/ng-template" id="playerSetting.html">
-      <input type="text" ng-model="player.name" tabIndex="{{$index + 1}}" />
-      <button ng-click="removePlayer($index)">remove</button>
+    <script type="text/ng-template" id="newPlayerForm.html">
+      <input type="text" ng-model="newPlayer.name" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index*2 + 1}}" placeholder="name" />
+      <input type="text" ng-model="newPlayer.email" ng-model-options="{updateOn: 'blur', getterSetter: true}" tabIndex="{{$index*2 + 2}}" placeholder="@" />
+      <button name="savePlayer" ng-click="savePlayer()">save player</button>
+      <button name="discard" ng-click="cancelPlayerCreation()">discard</button>
     </script>
 
     <script type="text/ng-template" id="settings.html">
-    <div>
-      <select ng-model="model.gameType" ng-options="gameType for gameType in gameTypes">
-      </select>
-
-      <div ng-repeat="player in model.players">
-        <div ng-include="'playerSetting.html'"></div>
+    <div class="settings grid">
+      <div class="unit one-third">
+        <div select-lock dt="gameTypes" model="model" prop-name="gameType" lock-condition="(model.players | isPlaying).length > 0"></div>
       </div>
-      <button name="addNewPlayer" ng-click="addNewPlayer()">add new player</button>
 
-      {{model | json}}
+      <div class="unit one-third available-players">
+        <div ng-repeat="player in model.players" player-icon></div>
+        <button ng-if="newPlayer == null" name="createPlayer" ng-click="createPlayer()">create a new player</button>
+        <div ng-if="newPlayer != null" ng-include="'newPlayerForm.html'"></div>
+      </div>
+
+      <div class="unit one-third">
+        <button name="resetGame" ng-click="resetGame()">start over</button>
+      </div>
     </div>
 
     </script>
 
-    <script type="text/ng-template" id="score.html">
-      <div class="score">
-        <div ng-repeat="player in model.players">
-          <span>{{player.name}}</span>
-          <span>{{player.score}}</span>
-          <input score-input player="player" type="text" name="move">
+    <script type="text/ng-template" id="standings.html">
+      <div class="standings">
+        <div player-info="player" ng-repeat="player in activePlayers">
         </div>
       </div>
     </script>
 
-    <script type="text/javascript" src="app/app.js"></script>
-    <script type="text/javascript" src="app/services/game.js"></script>
-    <script type="text/javascript" src="app/directives/scoreInput.js"></script>
-    <script type="text/javascript" src="app/controllers/score.js"></script>
-    <script type="text/javascript" src="app/controllers/settings.js"></script>
-
-    <toaster-container></toaster-container>
+    <script type="text/javascript" src="darts.js"></script>
   </body>
 </html>

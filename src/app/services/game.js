@@ -1,17 +1,21 @@
 'use strict';
 
 angular.module('darts').factory('game', [
-  function() {
+  'players',
+  function(players) {
 
     return {
-      makeMove: function(amount, player) {
-        player.moves.push(amount);
+      isGameOver: function() {
+        var allPlayers = players.getPlayers();
+        for (var i = 0; i < allPlayers.length; i++) {
+          var player = allPlayers[i];
+          if (player.score() === 0) {
+            return true;
+          }
+        }
 
-        if (amount <= player.score)
-          player.score = player.score - amount;
-
-        return player.score == 0;
+        return false;
       }
-    }
+    };
   }
 ])

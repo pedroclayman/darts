@@ -8,15 +8,18 @@ describe('game', function() {
   });
 
   beforeEach(function() {
+    console.log(inject);
     inject([
       'game',
       function(gameInj) {
+        console.log('injector');
         game = gameInj;
       }
     ]);
   });
 
-  it('should expose a method "makeMove"', function() {
-    expect(game.makeMove).toBeDefined();
+  it('should expose method "isGameOver"', function() {
+    expect(angular.isFunction(game.isGameOver)).toBeTruthy();
   });
+
 });

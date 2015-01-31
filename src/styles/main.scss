@@ -1,0 +1,55 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:100,300&subset=latin,latin-ext);
+
+$bgColorPrimary: #04f490;
+$bgColorSecondary: #79b6e5;
+$fontColor: #fff;
+
+@mixin gradient($from, $to) {
+  /* fallback/image non-cover color */
+  background-color: $from;
+
+  background-image: radial-gradient(bottom center, ellipse cover, $bgColorPrimary, $bgColorSecondary);
+  background-image: -o-radial-gradient(bottom center, ellipse cover, $bgColorPrimary, $bgColorSecondary);
+  background-image: -ms-radial-gradient(bottom center, ellipse cover, $bgColorPrimary, $bgColorSecondary);
+  background-image: -moz-radial-gradient(bottom center, ellipse cover, $bgColorPrimary, $bgColorSecondary);
+  background-image: -webkit-radial-gradient(bottom center, ellipse cover, $bgColorPrimary, $bgColorSecondary);
+}
+
+@mixin input-style {
+  border: 1px solid $fontColor;
+  padding: 3px 5px;
+  background: none;
+  color: $fontColor;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+body {
+  @include gradient($bgColorPrimary, $bgColorSecondary);
+  color: $fontColor;
+}
+
+input, select, button {
+  @include input-style;
+}
+
+button {
+  text-transform: uppercase;
+}
+
+@mixin bold {
+  font-weight: 300;
+}
+
+@mixin circular($width) {
+	width: $width;
+	height: $width;
+	border-radius: $width/2;
+	-webkit-border-radius: $width/2;
+	-moz-border-radius: $width/2;
+	}

@@ -17,9 +17,14 @@ module.exports = function(config) {
     files: [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/angular-animate/angular-animate.js',
-      'bower_components/angularjs-toaster/toaster.js',
-      'src/app/**/*.js',
+      'bower_components/angular-local-storage/dist/angular-local-storage.js',
+      'bower_components/angular-gravatar/build/md5.min.js',
+      'bower_components/angular-gravatar/build/angular-gravatar.min.js',
+      'src/app/app.js',
+      'src/app/controllers/**/*.js',
+      'src/app/directives/**/*.js',
+      'src/app/services/**/*.js',
+      'src/app/filters/**/*.js',
       'tests/**/*.spec.js'
     ],
 
