@@ -41,3 +41,13 @@
     }
   }
 }
+
+.available-players {
+  img {
+    @include circular(50px);
+  }
+
+  .in-game {
+    opacity: 0.5;
+  }
+}
