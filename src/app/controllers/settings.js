@@ -16,6 +16,10 @@ angular.module('darts').controller('settings', [
       $scope.newPlayer = players.createPlayer('');
     };
 
+    $scope.cancelPlayerCreation = function() {
+      $scope.newPlayer = null;
+    };
+
     $scope.savePlayer = function() {
       players.addPlayer($scope.newPlayer);
       $scope.newPlayer = null;

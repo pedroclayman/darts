@@ -43,8 +43,16 @@
 }
 
 .available-players {
+  > div {
+    cursor: pointer;
+    display: inline-block;
+    padding-right: 10px;
+  }
+
   img {
     @include circular(50px);
+    border: 1px solid #fff;
+    box-sizing:border-box;
   }
 
   .in-game {
