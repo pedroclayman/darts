@@ -12,7 +12,7 @@
 
   </head>
   <body ng-app="darts">
-    <div ng-controller="settings">
+    <div ng-controller="game">
       <div ng-include src="'settings.html'"></div>
       <div ng-include src="'standings.html'"></div>
     </div>
@@ -45,7 +45,7 @@
 
     <script type="text/ng-template" id="standings.html">
       <div class="standings">
-        <div player-info="player" ng-repeat="player in model.players | isPlaying">
+        <div player-info="player" ng-repeat="player in activePlayers">
         </div>
       </div>
     </script>
