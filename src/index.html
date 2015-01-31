@@ -26,7 +26,7 @@
     <script type="text/ng-template" id="settings.html">
     <div class="settings grid">
       <div class="unit one-third">
-        <div select-lock dt="gameTypes" model="model" prop-name="gameType" lock-condition="model.players.length > 0"></div>
+        <div select-lock dt="gameTypes" model="model" prop-name="gameType" lock-condition="(model.players | isPlaying).length > 0"></div>
       </div>
 
       <div class="unit one-third available-players">
