@@ -13,12 +13,22 @@ angular.module('darts').controller('settings', [
     };
 
     $scope.createPlayer = function() {
-      $scope.newPlayer = players.createPlayer('', $scope.model.gameType);
+      $scope.newPlayer = players.createPlayer('');
     };
 
     $scope.savePlayer = function() {
       players.addPlayer($scope.newPlayer);
       $scope.newPlayer = null;
+    };
+
+    $scope.togglePlayerInGame = function(player) {
+      console.log('toggling');
+      if (player.isPlaying()) {
+        player.resetScore(null);
+      }
+      else {
+        player.resetScore($scope.model.gameType);
+      }
     };
 
     $scope.removePlayer = function(player) {

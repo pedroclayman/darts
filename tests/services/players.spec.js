@@ -32,21 +32,25 @@ describe('players', function() {
   });
 
   it('a player instance should expose a method "email"', function() {
-    var player = players.createPlayer('Peter', 301);
+    var player = players.createPlayer('Peter');
     expect(player.email).toBeDefined();
     expect(angular.isFunction(player.email)).toBeTruthy();
   });
 
-  it('a player instance should expose a field "isInGame"', function() {
-    var player = players.createPlayer('Peter', 301);
-    expect(player.isInGame).toBeDefined();
-    expect(player.isInGame).toBeFalsy();
+  it('a player instance should expose a method "isPlaying"', function() {
+    var player = players.createPlayer('Peter');
+    expect(angular.isFunction(player.isPlaying)).toBeTruthy();
+
+    expect(player.isPlaying()).toBeFalsy();
+    player.score(301);
+    expect(player.isPlaying()).toBeTruthy();
   });
 
   it('should create a player', function() {
-    var player = players.createPlayer('Peter', 301);
+    var player = players.createPlayer('Peter');
+    player.score(301);
     expect(player.name()).toEqual("Peter");
-    expect(player.getScore()).toEqual(301);
+    expect(player.score()).toEqual(301);
     expect(player.getMoves()).toEqual([]);
   });
 
@@ -68,12 +72,16 @@ describe('players', function() {
   });
 
   it('should get a player by name', function() {
-    players.addPlayer(players.createPlayer('Peter', 301));
-    players.addPlayer(players.createPlayer('Jano', 301));
+    var player = players.createPlayer('Peter');
+    player.score(301);
+    players.addPlayer(player);
+    player = players.createPlayer('Jano');
+    player.score(301);
+    players.addPlayer(player);
 
     var player = players.getPlayer('Jano');
     expect(player.name()).toEqual('Jano');
-    expect(player.getScore()).toEqual(301);
+    expect(player.score()).toEqual(301);
 
     player = players.getPlayer('Jozefina');
     expect(player).toBeNull();
@@ -93,9 +101,10 @@ describe('players', function() {
   });
 
   it('should make a move', function() {
-    var player = players.createPlayer('Peter', 301);
+    var player = players.createPlayer('Peter');
+    player.score(301);
     player.makeMove(25);
-    expect(player.getScore()).toEqual(276);
+    expect(player.score()).toEqual(276);
   });
 
   it('should add the move to the end of the moves collection', function() {
@@ -107,22 +116,23 @@ describe('players', function() {
   });
 
   it('should only make a move if the move is a non negative number', function() {
-    var player = players.createPlayer('Peter', 301);
+    var player = players.createPlayer('Peter');
+    player.score(301);
     player.makeMove(25);
-    expect(player.getScore()).toEqual(276);
+    expect(player.score()).toEqual(276);
 
     var moves = player.getMoves();
     expect(moves.length).toEqual(1);
 
     player.makeMove(-25);
-    expect(player.getScore()).toEqual(276);
+    expect(player.score()).toEqual(276);
 
     moves = player.getMoves();
     expect(moves.length).toEqual(1);
     expect(moves[moves.length-1]).toEqual(25);
 
     player.makeMove('x');
-    expect(player.getScore()).toEqual(276);
+    expect(player.score()).toEqual(276);
 
     moves = player.getMoves();
     expect(moves.length).toEqual(1);
@@ -130,7 +140,7 @@ describe('players', function() {
 
 
     player.makeMove(1.2);
-    expect(player.getScore()).toEqual(276);
+    expect(player.score()).toEqual(276);
 
     moves = player.getMoves();
     expect(moves.length).toEqual(1);
@@ -138,37 +148,40 @@ describe('players', function() {
   });
 
   it('should make a move with more points than the users score', function() {
-    var player = players.createPlayer('Peter', 301);
+    var player = players.createPlayer('Peter');
+    player.score(301);
     player.makeMove(302);
-    expect(player.getScore()).toEqual(301);
+    expect(player.score()).toEqual(301);
 
     var moves = player.getMoves();
     expect(moves[moves.length-1]).toEqual(302);
   });
 
   it('should reset players score and clear all moves', function() {
-    var player = players.createPlayer('Peter', 301);
+    var player = players.createPlayer('Peter');
+    player.score(301);
     player.makeMove(100);
 
-    expect(player.getScore()).toEqual(201);
+    expect(player.score()).toEqual(201);
     expect(player.getMoves().length).toEqual(1);
-    player.resetScore();
+    player.resetScore(301);
 
-    expect(player.getScore()).toEqual(301);
+    expect(player.score()).toEqual(301);
     expect(player.getMoves().length).toEqual(0);
   });
 
   it('should undo last move', function() {
-    var player = players.createPlayer('Peter', 301);
+    var player = players.createPlayer('Peter');
+    player.score(301);
     player.makeMove(100);
 
-    expect(player.getScore()).toEqual(201);
+    expect(player.score()).toEqual(201);
 
     var moves = player.getMoves();
     expect(moves[moves.length-1]).toEqual(100);
 
     player.undoLastMove();
-    expect(player.getScore()).toEqual(301);
+    expect(player.score()).toEqual(301);
 
     moves = player.getMoves();
     expect(moves.length).toEqual(0);

@@ -20,7 +20,9 @@ angular.module('darts').factory('playerStore', [
         }));
       },
       retrieve: function() {
-        return localStorageService.get(storeKey) || [];
+        return (localStorageService.get(storeKey) || []).map(function(simplePlayerObj) {
+          return new Player(simplePlayerObj.name, simplePlayerObj.email);
+        });
       }
     };
   }

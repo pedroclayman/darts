@@ -1,10 +1,9 @@
 'use strict';
 
-var Player = function(name, score, email) {
-  var originalScore = score;
+var Player = function(name, email) {
   var moves = [];
+  var score;
 
-  this.isInGame = false;
 
   this.name = function(newName) {
     if (angular.isDefined(newName)) {
@@ -21,6 +20,13 @@ var Player = function(name, score, email) {
     return email;
   };
 
+  this.score = function(newScore) {
+    if (angular.isDefined(newScore)) {
+      score = newScore;
+    }
+    return score;
+  };
+
   this.undoLastMove = function() {
     if (moves.length > 0) {
       var lastMove = moves.pop();
@@ -29,7 +35,7 @@ var Player = function(name, score, email) {
   };
 
   this.resetScore = function(resetTo) {
-    score = originalScore;
+    score = resetTo;
     moves = [];
   };
 
@@ -48,8 +54,8 @@ var Player = function(name, score, email) {
     }
   };
 
-  this.getScore = function() {
-    return score;
+  this.isPlaying = function() {
+    return score != null;
   };
 
   this.getMoves = function() {
@@ -62,8 +68,8 @@ angular.module('darts').factory('players', [
   function players(playerStore) {
 
     var api = {
-      createPlayer: function(name, score, email) {
-        var player = new Player(name, score, email);
+      createPlayer: function(name, email) {
+        var player = new Player(name, email);
         return player;
       },
       addPlayer: function(player) {
@@ -94,9 +100,7 @@ angular.module('darts').factory('players', [
       }
     };
 
-    var players = playerStore.retrieve().map(function(simplePlayer) {
-      return api.createPlayer(simplePlayer.name, null, simplePlayer.email);
-    });
+    var players = playerStore.retrieve();
 
     return api;
   }

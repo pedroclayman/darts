@@ -14,10 +14,10 @@ describe('playerStore', function() {
         return {
           set: function(key, localPlayers) {
             players = localPlayers;
-            setSpy(arguments);
+            setSpy(localPlayers);
           },
           get: function(key) {
-            getSpy(arguments);
+            getSpy(players);
             return players;
           }
         };
@@ -38,16 +38,18 @@ describe('playerStore', function() {
     expect(angular.isFunction(playerStore.store)).toBeTruthy();
 
     var players = [];
-    var player = new Player('Peto', 301, 'peter@somewhere.com');
+    var player = new Player('Peto', 'peter@somewhere.com');
     players.push(player);
 
     playerStore.store(players);
 
-    expect(setSpy).toHaveBeenCalled();
+    expect(setSpy).toHaveBeenCalledWith([{ name: 'Peto', email: 'peter@somewhere.com' }]);
     var retrievedPlayers = playerStore.retrieve();
 
     expect(retrievedPlayers.length).toEqual(1);
-    expect(retrievedPlayers[0]).toEqual({name: 'Peto', email: "peter@somewhere.com" })
+
+    // a rather stupid test how to determine in its not the simple object
+    expect(retrievedPlayers[0]).not.toEqual({ name: 'Peto', email: 'peter@somewhere.com' });
   });
 
   it('should return an empty array when calling "retrieve" and no data is stored in local storage', function() {

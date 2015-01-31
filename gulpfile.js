@@ -40,6 +40,7 @@ var test = function(shouldWatch) {
     'src/app/controllers/**/*.js',
     'src/app/directives/**/*.js',
     'src/app/services/**/*.js',
+    'src/app/filters/**/*.js',
     'tests/**/*.spec.js'
   ];
 

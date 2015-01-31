@@ -45,7 +45,7 @@
 
     <script type="text/ng-template" id="standings.html">
       <div class="standings">
-        <div player-info="player" ng-repeat="player in model.players | filter: {isInGame:true}">
+        <div player-info="player" ng-repeat="player in model.players | isPlaying">
         </div>
       </div>
     </script>
