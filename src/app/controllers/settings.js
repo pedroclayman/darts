@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('darts').controller('settings', [
- '$scope', 'gameTypes', 'players',
-  function($scope, gameTypes, players) {
+ '$scope', 'gameTypes', 'players', 'isPlayingFilter',
+  function($scope, gameTypes, players, isPlayingFilter) {
     $scope.gameTypes = gameTypes;
 
     $scope.newPlayer = null;
@@ -22,7 +22,6 @@ angular.module('darts').controller('settings', [
     };
 
     $scope.togglePlayerInGame = function(player) {
-      console.log('toggling');
       if (player.isPlaying()) {
         player.resetScore(null);
       }
@@ -36,8 +35,10 @@ angular.module('darts').controller('settings', [
     };
 
     $scope.resetGame = function() {
-      angular.forEach($scope.model.players, function(player) {
-        player.resetScore();
+      var activePlayers =
+
+      angular.forEach(isPlayingFilter($scope.model.players), function(player) {
+        player.resetScore($scope.model.gameType);
       });
     }
   }

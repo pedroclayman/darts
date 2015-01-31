@@ -9,11 +9,11 @@ angular.module('darts').factory('game', [
         var allPlayers = players.getPlayers();
         for (var i = 0; i < allPlayers.length; i++) {
           var player = allPlayers[i];
-          if (player.getScore() === 0) {
+          if (player.score() === 0) {
             return true;
           }
         }
-        
+
         return false;
       }
     };
