@@ -6,7 +6,7 @@ angular.module('darts').directive('playerInfo', [
     return {
       restrict: 'A',
       template: '<div class="player-standings">' +
-                  '<img gravatar-src="player.email()" gravatar-size="150">' +
+                  '<div class="img-wrapper"><img gravatar-src="player.email()" gravatar-size="150"></div>' +
                   '<span class="name">{{getNameWithFallback()}}</span>' +
                   '<span class="score">{{player.score()}}</span>' +
                   '<input score-input="player" type="text" name="move">' +

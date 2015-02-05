@@ -13,6 +13,22 @@
   @include section;
 
   .player-standings {
+
+    width: 100%;
+
+    > :not(img), :not(input) {
+      text-align: center;
+    }
+
+    > img, input {
+      display: block;
+      margin: 0 auto;
+    }
+
+    input {
+      width: 50%;
+    }
+
     @include section;
     float: left;
 
@@ -24,9 +40,15 @@
       font-size: 2.4em;
     }
 
+    .img-wrapper {
+      height: 160px;
+    }
+
     img {
-      @include circular(150px);
+      transition: width 0.2s ease, height 0.2s ease;
+      @include circular(135px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+
     }
 
     .score {
@@ -37,6 +59,12 @@
     .move-info {
       &:not(:last-child):after {
         content: ', ';
+      }
+    }
+
+    &.active {
+      img {
+        @include circular(150px);
       }
     }
   }
@@ -51,7 +79,6 @@
 
   img {
     @include circular(50px);
-    border: 1px solid #fff;
     box-sizing:border-box;
   }
 
