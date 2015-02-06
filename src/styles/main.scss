@@ -53,3 +53,12 @@ button {
 	-webkit-border-radius: $width/2;
 	-moz-border-radius: $width/2;
 	}
+
+@mixin saturation($percentage) {
+  $percentage: 100% - $percentage;
+  filter: grayscale($percentage); /* Current draft standard */
+  -webkit-filter: grayscale($percentage); /* New WebKit */
+  -moz-filter: grayscale($percentage);
+  -ms-filter: grayscale($percentage);
+  -o-filter: grayscale($percentage); /* Not yet supported in Gecko, Opera or IE */
+}
