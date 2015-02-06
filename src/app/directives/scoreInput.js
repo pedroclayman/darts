@@ -1,14 +1,26 @@
 'use strict';
 
 angular.module('darts').directive('scoreInput',[
-  'game',
-  function(game) {
+  function() {
     return {
       restrict: 'A',
       scope: {
-        player: '=scoreInput'
+        player: '=scoreInput',
+        isActive: "="
       },
       link: function(scope, element, attrs) {
+
+        scope.$watch('isActive',
+          function(newVal) {
+            if (newVal) {
+              element.removeAttr('disabled');
+              element[0].focus();
+            }
+            else {
+              element.attr('disabled', 'disabled');
+              element[0].blur();
+            }
+          });
 
         element.on('keyup', function(e) {
           if (e.keyCode === 13) {
@@ -19,10 +31,6 @@ angular.module('darts').directive('scoreInput',[
             }
             else if (amount != null && amount !== '') {
               scope.player.makeMove(amount);
-
-              if(game.isGameOver()) {
-                alert('Game Over\n' + scope.player.name() + ' won !');
-              }
             }
 
             if (!scope.$$phase)

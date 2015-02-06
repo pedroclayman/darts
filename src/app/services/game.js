@@ -1,14 +1,13 @@
 'use strict';
 
 angular.module('darts').factory('game', [
-  'players',
-  function(players) {
+  function() {
 
     return {
-      isGameOver: function() {
-        var allPlayers = players.getPlayers();
-        for (var i = 0; i < allPlayers.length; i++) {
-          var player = allPlayers[i];
+      isGameOver: function(players) {
+
+        for (var i = 0; i < players.length; i++) {
+          var player = players[i];
           if (player.score() === 0) {
             return true;
           }
@@ -16,9 +15,7 @@ angular.module('darts').factory('game', [
 
         return false;
       },
-      isOnTurn: function(player) {
-        var allPlayers = players.getPlayers();
-
+      isOnTurn: function(player, allPlayers) {
         var leastMovesSoFar = null;
         var indexOfPlayerLeastMoves = null;
 

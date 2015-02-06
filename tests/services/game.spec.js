@@ -63,7 +63,8 @@ describe('game', function() {
       { name: 'Mike', _score: 201, _moves: [] }
     ];
     players.setPlayers(allPlayers);
-    expect(game.isGameOver()).toBeFalsy();
+
+    expect(game.isGameOver(players.getPlayers())).toBeFalsy();
   });
 
   it('should return true if one of the score is 0', function() {
@@ -72,7 +73,8 @@ describe('game', function() {
       { name: 'Mike', _score: 0, _moves: [] }
     ];
     players.setPlayers(allPlayers);
-    expect(game.isGameOver()).toBeTruthy();
+
+    expect(game.isGameOver(players.getPlayers())).toBeTruthy();
   });
 
   it('should expose method "isOnTurn"', function() {
@@ -90,9 +92,9 @@ describe('game', function() {
     allPlayers = players.getPlayers();
 
     expect(allPlayers.length).toEqual(3);
-    expect(game.isOnTurn(allPlayers[0])).toBeFalsy();
-    expect(game.isOnTurn(allPlayers[1])).toBeTruthy();
-    expect(game.isOnTurn(allPlayers[2])).toBeFalsy();
+    expect(game.isOnTurn(allPlayers[0], allPlayers)).toBeFalsy();
+    expect(game.isOnTurn(allPlayers[1], allPlayers)).toBeTruthy();
+    expect(game.isOnTurn(allPlayers[2], allPlayers)).toBeFalsy();
 
     allPlayers = [
       { name: 'John', _score: 101, _moves: [12] },
@@ -104,8 +106,8 @@ describe('game', function() {
     allPlayers = players.getPlayers();
 
     expect(allPlayers.length).toEqual(3);
-    expect(game.isOnTurn(allPlayers[0])).toBeTruthy();
-    expect(game.isOnTurn(allPlayers[1])).toBeFalsy();
-    expect(game.isOnTurn(allPlayers[2])).toBeFalsy();
+    expect(game.isOnTurn(allPlayers[0], allPlayers)).toBeTruthy();
+    expect(game.isOnTurn(allPlayers[1], allPlayers)).toBeFalsy();
+    expect(game.isOnTurn(allPlayers[2], allPlayers)).toBeFalsy();
   });
 });

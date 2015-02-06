@@ -43,9 +43,7 @@ angular.module('darts').controller('game', [
     };
 
     $scope.isPlayerActive = function(player) {
-      var isa = game.isOnTurn(player);
-      console.log(player.name() + ' ' + isa);
-      return isa;
+      return game.isOnTurn(player, $scope.activePlayers);
     };
 
     $scope.removePlayer = function(player) {
