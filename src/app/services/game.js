@@ -15,6 +15,24 @@ angular.module('darts').factory('game', [
         }
 
         return false;
+      },
+      isOnTurn: function(player) {
+        var allPlayers = players.getPlayers();
+
+        var leastMovesSoFar = null;
+        var indexOfPlayerLeastMoves = null;
+
+        for (var i = 0; i <= allPlayers.length-1; i++) {
+          var localPlayer = allPlayers[i];
+          var noOfMoves = localPlayer.getMoves().length;
+
+          if (leastMovesSoFar == null || leastMovesSoFar > noOfMoves) {
+            leastMovesSoFar = noOfMoves;
+            indexOfPlayerLeastMoves = i;
+          }
+        }
+
+        return player === allPlayers[indexOfPlayerLeastMoves];
       }
     };
   }

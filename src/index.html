@@ -45,7 +45,7 @@
 
     <script type="text/ng-template" id="standings.html">
       <div class="standings grid">
-        <div player-info="player" ng-repeat="player in activePlayers" class="unit one-fourth">
+        <div player-info="player" ng-repeat="player in activePlayers" class="unit one-fourth player-standings" ng-class="{'active': isPlayerActive(player) }">
         </div>
       </div>
     </script>

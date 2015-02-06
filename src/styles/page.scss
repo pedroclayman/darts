@@ -13,9 +13,10 @@
   @include section;
 
   .player-standings {
-
-    width: 100%;
-
+    > div {
+      width: 100%;
+    }
+    
     > :not(img), :not(input) {
       text-align: center;
     }
