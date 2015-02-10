@@ -22,6 +22,27 @@ $fontColor: #fff;
   color: $fontColor;
 }
 
+@mixin bold {
+  font-weight: 300;
+}
+
+@mixin circular($width) {
+  width: $width;
+  height: $width;
+  border-radius: $width/2;
+  -webkit-border-radius: $width/2;
+  -moz-border-radius: $width/2;
+  }
+
+@mixin saturation($percentage) {
+  $percentage: 100% - $percentage;
+  filter: grayscale($percentage); /* Current draft standard */
+  -webkit-filter: grayscale($percentage); /* New WebKit */
+  -moz-filter: grayscale($percentage);
+  -ms-filter: grayscale($percentage);
+  -o-filter: grayscale($percentage); /* Not yet supported in Gecko, Opera or IE */
+}
+
 body, html {
   height: 100%;
   font-family: 'Roboto', sans-serif;
@@ -42,23 +63,12 @@ button {
   text-transform: uppercase;
 }
 
-@mixin bold {
-  font-weight: 300;
+button.add-person {
+  @include circular(50px);
+  background: url('icons/add-person.svg');
 }
 
-@mixin circular($width) {
-	width: $width;
-	height: $width;
-	border-radius: $width/2;
-	-webkit-border-radius: $width/2;
-	-moz-border-radius: $width/2;
-	}
-
-@mixin saturation($percentage) {
-  $percentage: 100% - $percentage;
-  filter: grayscale($percentage); /* Current draft standard */
-  -webkit-filter: grayscale($percentage); /* New WebKit */
-  -moz-filter: grayscale($percentage);
-  -ms-filter: grayscale($percentage);
-  -o-filter: grayscale($percentage); /* Not yet supported in Gecko, Opera or IE */
+button.undo {
+  @include circular(50px);
+  background: url('icons/undo.svg');
 }

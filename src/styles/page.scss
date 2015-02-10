@@ -21,13 +21,22 @@
       text-align: center;
     }
 
-    > img, input {
+    > img, .input-wrapper {
       display: block;
       margin: 0 auto;
     }
 
-    input {
+    .input-wrapper {
       width: 50%;
+
+      input {
+        width: 70%;
+      }
+
+      button {
+        padding-left:5%;
+        width: 25%;
+      }
     }
 
     @include section;

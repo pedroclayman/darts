@@ -29,7 +29,7 @@ var Player = function(name, email) {
 
   this.undoLastMove = function() {
     if (moves.length > 0) {
-      var lastMove = moves.pop();
+      var lastMove = parseInt(moves.pop());
       score += lastMove;
     }
   };

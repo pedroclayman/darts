@@ -10,7 +10,7 @@ var rename      = require('gulp-rename');
 
 
 
-gulp.task('default', ['copy-content','minify', 'scss-convert', 'test'], function(){
+gulp.task('default', ['copy-content','minify', 'scss-convert', 'test', 'copy-icons'], function(){
 
 });
 
@@ -18,6 +18,7 @@ gulp.task('watch', ['test-watch'], function() {
   gulp.watch('src/**/*.js', ['minify']);
   gulp.watch('src/styles/**/*.scss', ['scss-convert']);
   gulp.watch('src/index.html', ['copy-content']);
+  gulp.watch('src/styles/icons/**/*.*', ['copy-icons']);
 });
 
 gulp.task('minify', function() {
@@ -27,6 +28,11 @@ gulp.task('minify', function() {
     .pipe(jsmin())
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('dist'));
+});
+
+gulp.task('copy-icons', function() {
+  gulp.src('src/styles/icons/**/*.*')
+    .pipe(gulp.dest('dist/styles/icons'));
 });
 
 var test = function(shouldWatch) {
@@ -65,12 +71,12 @@ gulp.task('test-watch', function() {
 gulp.task('scss-convert', function() {
   gulp.src('src/styles/**/*.scss')
     .pipe(sass( { errLogToConsole: true } ))
-    .pipe(gulp.dest('dist/styles'))
+    .pipe(gulp.dest('dist/styles/raw'))
     .pipe(concatCss("darts.css"))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist/styles'))
     .pipe(minifyCss())
     .pipe(rename('darts.min.css'))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/styles'));
 
 });
 

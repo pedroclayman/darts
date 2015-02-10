@@ -9,7 +9,10 @@ angular.module('darts').directive('playerInfo', [
                   '<div class="img-wrapper"><img gravatar-src="player.email()" gravatar-size="150"></div>' +
                   '<span class="name">{{getNameWithFallback()}}</span>' +
                   '<span class="score">{{player.score()}}</span>' +
+                  '<div class="input-wrapper">' +
                   '<input score-input="player" type="text" name="move" is-active="isActive()">' +
+                  '<button class="undo" ng-click="undoMove()"></button>' +
+                  '</div>' +
                   '<div class="moves">' +
                   '<div move-info="move" ng-repeat="move in player.getMoves() track by $index"></div>' +
                   '</div>' +
@@ -26,6 +29,10 @@ angular.module('darts').directive('playerInfo', [
         scope.getNameWithFallback = function() {
           var name = scope.player.name();
           return name != null && name !== '' ? scope.player.name() : "???";
+        };
+
+        scope.undoMove = function() {
+          scope.player.undoLastMove();
         };
       }
     };
