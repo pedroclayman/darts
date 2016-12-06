@@ -5,7 +5,7 @@ angular.module('darts').directive('moveInfo', [
     return {
       restrict : 'A',
       replace: true,
-      template: '<span class="move-info">{{move}}</span>',
+      template: '<span class="move-info">{{move.points}}</span>',
       scope: {
         move: "=moveInfo"
       }
