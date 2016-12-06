@@ -112,7 +112,7 @@ describe('players', function() {
     player.makeMove(25);
 
     var moves = player.getMoves();
-    expect(moves[moves.length-1]).toEqual(25);
+    expect(moves[moves.length-1].points).toEqual(25);
   });
 
   it('should only make a move if the move is a non negative number', function() {
@@ -129,14 +129,14 @@ describe('players', function() {
 
     moves = player.getMoves();
     expect(moves.length).toEqual(1);
-    expect(moves[moves.length-1]).toEqual(25);
+    expect(moves[moves.length-1].points).toEqual(25);
 
     player.makeMove('x');
     expect(player.score()).toEqual(276);
 
     moves = player.getMoves();
     expect(moves.length).toEqual(1);
-    expect(moves[moves.length-1]).toEqual(25);
+    expect(moves[moves.length-1].points).toEqual(25);
 
 
     player.makeMove(1.2);
@@ -144,7 +144,7 @@ describe('players', function() {
 
     moves = player.getMoves();
     expect(moves.length).toEqual(1);
-    expect(moves[moves.length-1]).toEqual(25);
+    expect(moves[moves.length-1].points).toEqual(25);
   });
 
   it('should make a move with more points than the users score', function() {
@@ -154,7 +154,7 @@ describe('players', function() {
     expect(player.score()).toEqual(301);
 
     var moves = player.getMoves();
-    expect(moves[moves.length-1]).toEqual(302);
+    expect(moves[moves.length-1].points).toEqual(302);
   });
 
   it('should reset players score and clear all moves', function() {
@@ -178,7 +178,7 @@ describe('players', function() {
     expect(player.score()).toEqual(201);
 
     var moves = player.getMoves();
-    expect(moves[moves.length-1]).toEqual(100);
+    expect(moves[moves.length-1].points).toEqual(100);
 
     player.undoLastMove();
     expect(player.score()).toEqual(301);
@@ -187,4 +187,22 @@ describe('players', function() {
     expect(moves.length).toEqual(0);
   });
 
+  it('should undo last invalid move', function() {
+    var player = players.createPlayer('Peter');
+    player.score(301);
+    player.makeMove(302);
+
+    expect(player.score()).toEqual(301);
+
+    var moves = player.getMoves();
+    console.log(moves);
+    expect(moves[moves.length-1].points).toEqual(302);
+    expect(moves[moves.length-1].persisted).toEqual(false);
+
+    player.undoLastMove();
+    expect(player.score()).toEqual(301);
+
+    moves = player.getMoves();
+    expect(moves.length).toEqual(0);
+  });
 });

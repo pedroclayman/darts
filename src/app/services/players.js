@@ -29,8 +29,10 @@ var Player = function(name, email) {
 
   this.undoLastMove = function() {
     if (moves.length > 0) {
-      var lastMove = parseInt(moves.pop());
-      score += lastMove;
+      var lastMove = moves.pop();
+      if (lastMove.persisted) {
+        score += parseInt(lastMove.points);
+      }
     }
   };
 
@@ -46,11 +48,13 @@ var Player = function(name, email) {
     }
 
     if (isWholeNumber(points) && points >= 0) {
-      moves.push(points);
+      var move = { points: points, persisted: false };
 
       if (points <= score) {
+        move.persisted = true;
         score -= points;
       }
+      moves.push(move);
     }
   };
 
